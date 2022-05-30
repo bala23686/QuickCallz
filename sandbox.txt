@@ -1,0 +1,7 @@
+NVP/SOAP Sandbox API Credentials
+Username:
+sb-jfdlt6752300_api1.business.example.com
+Password:
+K4QWAHA55PAZXZ74
+Signature:
+An-ZIklkyylm6aUsU1SHYtr.50KOAMT-DTgnQ3FXg96aVMqL3-zUt1jK
