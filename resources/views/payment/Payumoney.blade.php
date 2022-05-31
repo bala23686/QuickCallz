@@ -2,7 +2,7 @@
 $MERCHANT_KEY = env('MERCHANT_KEY');
 $SALT = env('SALT');
 $PAYU_BASE_URL = env('PAYU_TEST_MODE') ? 'https://test.payu.in' : 'https://secure.payu.in';
-$AMOUNT = env('PAYU_TEST_MODE') ? 1000 : (int)$payment_info->amt;
+$AMOUNT = env('PAYU_TEST_MODE') ? 1000 : (int) $payment_info->amt;
 
 $action = '';
 $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
@@ -14,7 +14,7 @@ $posted = [
     'firstname' => $payment_info->name,
     'email' => $payment_info->email,
     'productinfo' => 'PHP Project Subscribe',
-    'surl' => route('Payumoney.success'),
+    'surl' => url('posts/create/payment'),
     'furl' => route('Payumoney.error'),
     'service_provider' => 'payu_paisa',
 ];
@@ -70,7 +70,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
         <input type="hidden" name="firstname" id="firstname" value="<?= Auth::user()->name ?>" /><br />
         <input type="hidden" name="email" id="email" value="<?= Auth::user()->email ?>" /><br />
         <input type="hidden" name="productinfo" value="PHP Project Subscribe"><br />
-        <input type="hidden" name="surl" value="{{ route('Payumoney.success') }}" /><br />
+        <input type="hidden" name="surl" value="{{ url('posts/create/payment') }}" /><br />
         <input type="hidden" name="furl" value="{{ route('Payumoney.error') }}" /><br />
         <input type="hidden" name="service_provider" value="payu_paisa" /><br />
 

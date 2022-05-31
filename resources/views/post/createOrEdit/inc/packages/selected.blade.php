@@ -40,9 +40,9 @@
 		</tr>
 	</table>
 	
-	@includeFirst([
+	{{-- @includeFirst([
 		config('larapen.core.customizedViewPath') . 'post.createOrEdit.inc.payment-methods.plugins',
 		'post.createOrEdit.inc.payment-methods.plugins'
-	])
+	]) --}}
 	
 @endif

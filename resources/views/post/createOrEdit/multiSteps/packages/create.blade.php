@@ -23,7 +23,6 @@
     <div class="main-container">
         <div class="container">
             <div class="row">
-
                 @includeFirst([config('larapen.core.customizedViewPath') . 'post.inc.notification', 'post.inc.notification'])
 
                 <div class="col-md-12 page-content">
@@ -52,15 +51,28 @@
                                             <br>
                                             <p class="d-flex d-flex justify-content-around">
                                                 <img width="20%" src="{{ asset('/assets/img/pay.png') }}" alt="img" />
-                                                <img class="rounded shadow" width="15%" src="{{ asset('/assets/img/QR.jpg') }}"
-                                                    alt="img" />
+                                                <img class="rounded shadow" width="15%"
+                                                    src="{{ asset('/assets/img/QR.jpg') }}" alt="img" />
                                             </p>
                                         </div>
                                         <br>
                                         <hr />
+                                        @if (isset($selectedPackage) && !empty($selectedPackage))
+                                            <?php $currentPackagePrice = $selectedPackage->price; ?>
+                                            @includeFirst([
+                                                config('larapen.core.customizedViewPath') . 'post.createOrEdit.inc.packages.selected',
+                                                'post.createOrEdit.inc.packages.selected',
+                                            ])
+                                        @else
+                                            @includeFirst([
+                                                config('larapen.core.customizedViewPath') . 'post.createOrEdit.inc.packages',
+                                                'post.createOrEdit.inc.packages',
+                                            ])
+                                        @endif
                                         <div class="text-center">
                                             <h2>Or Pay With</h2>
-                                            <img width="50%" src="{{ asset('assets/img/payumoney-logo.png') }}" alt="img" />
+                                            <img width="50%" src="{{ asset('assets/img/payumoney-logo.png') }}"
+                                                alt="img" />
                                         </div>
                                         <!-- Button  -->
                                         <div class="form-group">
