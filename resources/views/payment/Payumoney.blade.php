@@ -14,7 +14,7 @@ $posted = [
     'firstname' => $payment_info->name,
     'email' => $payment_info->email,
     'productinfo' => 'PHP Project Subscribe',
-    'surl' => url('posts/create/payment'),
+    'surl' => route('Payumoney.success'),
     'furl' => route('Payumoney.error'),
     'service_provider' => 'payu_paisa',
 ];
@@ -25,7 +25,7 @@ if (empty($posted['txnid'])) {
 }
 
 $hash = '';
-$hashSequence = 'key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10';
+$hashSequence = "{$MERCHANT_KEY}|{$txnid}|{$AMOUNT}|{$posted['productinfo']}|{$payment_info->name}|{$payment_info->email}|||||||||||".$SALT;
 
 if (empty($posted['hash']) && sizeof($posted) > 0) {
     $hashVarsSeq = explode('|', $hashSequence);
@@ -34,14 +34,16 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
         $hash_string .= isset($posted[$hash_var]) ? $posted[$hash_var] : '';
         $hash_string .= '|';
     }
-    $hash_string .= $SALT;
+    // $hash_string .= ;
 
-    $hash = strtolower(hash('sha512', $hash_string));
+    $hash = strtolower(hash('sha512', $hashSequence));
     $action = $PAYU_BASE_URL . '/_payment';
 } elseif (!empty($posted['hash'])) {
     $hash = $posted['hash'];
     $action = $PAYU_BASE_URL . '/_payment';
 }
+
+$hash = strtolower(hash('sha512', $hashSequence));
 @endphp
 
 <html>
@@ -66,9 +68,9 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
         <input type="hidden" name="key" value="{{ $MERCHANT_KEY }}" /><br />
         <input type="hidden" name="hash" value="{{ $hash }}" /><br />
         <input type="hidden" name="txnid" value="{{ $txnid }}" /><br />
-        <input type="hidden" name="amount" value="1000" /><br />
-        <input type="hidden" name="firstname" id="firstname" value="<?= Auth::user()->name ?>" /><br />
-        <input type="hidden" name="email" id="email" value="<?= Auth::user()->email ?>" /><br />
+        <input type="hidden" name="amount" value="{{$AMOUNT}}" /><br />
+        <input type="hidden" name="firstname" id="firstname" value="{{$payment_info->name}}" /><br />
+        <input type="hidden" name="email" id="email" value="{{ $payment_info->email }}" /><br />
         <input type="hidden" name="productinfo" value="PHP Project Subscribe"><br />
         <input type="hidden" name="surl" value="{{ url('posts/create/payment') }}" /><br />
         <input type="hidden" name="furl" value="{{ route('Payumoney.error') }}" /><br />

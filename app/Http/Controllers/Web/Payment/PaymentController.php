@@ -21,16 +21,16 @@ class PaymentController extends Controller
 
     public function success(Request $request)
     {
-        dd($request);
+      
 
-        $payment = new Payment();
-        $payment->post_id = '';
-        $payment->package_id = '';
-        $payment->payment_method_id = '';
-        $payment->transaction_id = '';
-        $payment->amount = '';
-        $payment->active = '';
-        $payment->save();
+        // $payment = new Payment();
+        // $payment->post_id = '';
+        // $payment->package_id = '';
+        // $payment->payment_method_id = '';
+        // $payment->transaction_id = '';
+        // $payment->amount = '';
+        // $payment->active = '';
+        // $payment->save();
 
         return view('payment.PayumoneySuccess');
     }
@@ -38,21 +38,21 @@ class PaymentController extends Controller
     public function error(Request $request)
     {
 
-        dd($request);
+     
 
         // status
         // unmappedstatus
         // txnid
         // field9
         // payuMoneyId
-        $payment = new Payment();
-        $payment->post_id = '';
-        $payment->package_id = '';
-        $payment->payment_method_id = '';
-        $payment->transaction_id = '';
-        $payment->amount = '';
-        $payment->active = '';
-        $payment->save();
+        // $payment = new Payment();
+        // $payment->post_id = '';
+        // $payment->package_id = '';
+        // $payment->payment_method_id = '';
+        // $payment->transaction_id = '';
+        // $payment->amount = '';
+        // $payment->active = '';
+        // $payment->save();
         return view('payment.PayumoneyFailure');
     }
 }
